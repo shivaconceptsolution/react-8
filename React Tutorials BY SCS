@@ -1,0 +1,455 @@
+What is React JSX?
+React JS uses JSX for templating instead of the regular JavaScript. Though it is not mandatory to use it, it is recommended to use it for the following advantages:
+•	It’s faster because of the reason that it performs optimization during the code compilation to JavaScript
+•	It is type-safe, meaning any errors would be caught on code compilation itself
+•	If you are familiar with HTML, then you can write templates easier and also faster
+Using JSX:
+JSX is nothing more than regular HTML code and also looks similar to HTML code. This is already encountered in our Environment setup section of the article already, where we introduced you to App.jsx in which we were returning a div to main.js for rendering it on the browser. Let us relook at that sample again
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12	import React from 'react';
+ 
+class App extends React.Component {
+   render() {
+      return (
+         < div >
+            Hello World!!!
+         </ div >
+      );
+   }
+}
+export default App;
+Advanced JSX:
+Though the JSX code looks similar to HTML code, there are few things that we need to take care of. If we are returning more than one element, then these should be wrapped into a single container element. Let us check that out in a sample example below:
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14	import React from 'react';
+ 
+class App extends React.Component {
+   render() {
+      return (
+         < div >
+            < h1 >Header< /h1 >
+            < h2 >Content< /h2 >
+            < p >This is the content!!!< /p >
+         < /div >
+      );
+   }
+}
+export default App;
+In the same example, we can provide a custom attribute in addition to the regular HTML code that has been written already. If we want to add a custom attribute, then we need to make use of the data- prefix. In the above example, let us add one custom property called data-mycustomattribute
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14	import React from 'react';
+ 
+class App extends React.Component {
+   render() {
+      return (
+         < div >
+            < h1 >Header< /h1 >
+            < h2 >Content</h2>
+            <p data-mycustomattribute = "somevalue">This is the content!!!</p>
+         </div>
+      );
+   }
+}
+export default App;
+Pro JSX:
+In the examples above, we have just used simple HTML code additional to what can be achieved with a single “Hello, World!” React JS program. There are further constructs that could be used to do arithmetic operations, ternary operations, styling, and add some comments to your React programs. These can be achieved by using just the same sample program and replace the ordinary HTML code with an aforementioned construct from React.
+                                 -------  Related Page: Introduction to ReactJS  -------
+React JS - Components
+As we have already discussed earlier, any of the React code that you would want to write would have to go under a component. With this understanding, let us learn how to combine components in order to make the application well maintained. This approach will allow changing your component without even affecting the rest of the page.
+Stateless Example:
+In the example below, our first and foremost component is App and it is the owner of Header and Content. We are attempting to create Header and Content separately and then adding it back to the JSX tree in the App component. In this requirement, there is only a change required in the App component. Let us check this example out, here comes App.jsx:
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32	import React from 'react';
+ 
+class App extends React.Component {
+   render() {
+      return (
+         < div >
+            < Header />
+            < Content />
+         < /div >
+      );
+   }
+}
+class Header extends React.Component {
+   render() {
+      return (
+         < div >
+            < h1 >Header< /h1 >
+         < /div >
+      );
+   }
+}
+class Content extends React.Component {
+   render() {
+      return (
+         < div >
+            < h2 >Content< /h2 >
+            < p >The content text!!!< /p >
+         < /div >
+      );
+   }
+}
+export default App;
+And we want this to be rendered onto the browser as well, hence we need to import this into the main.js file and then make a call to reactDOM.render() method. Let us check out main.js:
+1
+2
+3
+4
+5	import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App.jsx';
+ 
+ReactDOM.render(<App />, document.getElementById('app'));
+On running the above code, this is what the browser would be displaying.
+ 
+Stateful Example:
+In this example, we would follow the same main component App as earlier. The Header component is added like in the previous example without any change and also it doesn’t need any state-related details. Instead of adding a Content tag, we would go ahead with a table implementation to add as many rows as we could dynamically add. Let us look at App.jsx:
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61	import React from 'react';
+ 
+class App extends React.Component {
+   constructor() {
+      super();
+      this.state = {
+         data: 
+         [
+            {
+               "id":1,
+               "name":"Foo",
+               "age":"20"
+            },
+            {
+               "id":2,
+               "name":"Bar",
+               "age":"30"
+            },
+            {
+               "id":3,
+               "name":"Baz",
+               "age":"40"
+            }
+         ]
+      }
+   }
+   render() {
+      return (
+         < div >
+            < Header />
+            < table >
+               < tbody >
+                  {this.state.data.map((person, i) => <TableRow key = {i} 
+                     data = {person} />)}
+               < /tbody >
+            < /table >
+         < /div >
+      );
+   }
+}
+class Header extends React.Component {
+   render() {
+      return (
+         < div >
+            < h1 >Header< /h1 >
+         < /div >
+      );
+   }
+}
+class TableRow extends React.Component {
+   render() {
+      return (
+         <tr>
+            <td>{this.props.data.id}</td>
+            <td>{this.props.data.name}</td>
+            <td>{this.props.data.age}</td>
+         </tr>
+      );
+   }
+}
+export default App;
+Let us now look at main.js:
+1
+2
+3
+4	import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App.jsx';
+ReactDOM.render(<App/>, document.getElementById('app'));
+
+React JS Certification Training!
+Explore Curriculum
+
+On running this program, we would now be able to see that, instead of a stateless Content tag, we are now able to display dynamically added data with some state details attached to it.
+ 
+React JS - State
+A state can be defined as the place from where your value is coming from. We should always make sure that the state is kept as simple as possible, and also at the same time, we should always look for opportunities to reduce the number of stateful components. Let any number of components need their state value, we should always have a container component that holds the state details of all these components.
+We can refer to the examples discussed in the previous section to understand more about State in the React JS world and also how it can be used.
+React JS - Props
+The only difference that one can identify between a State and Props is that Props are actually immutable objects. This is the main reason why Container component always has a state defined, which gets updated or altered, whereas the children components should pass on data from State using Props.
+Props Overview:
+We are continuing the discussion that we initiated while understanding what Props are. Now, let’s check a simple example where we can use some Props values and how we can access them or render them on the browser. Let us take a look at App.jsx:
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16	import React from 'react';
+class App extends React.Component {
+   render() {
+      return (
+         < div >
+            < h1 >{this.props.headerProp}< /h1 >
+            < h2 >{this.props.contentProp}< /h2 >
+         < /div >
+      );
+   }
+}
+App.defaultProps = {
+   headerProp: "Header from props...",
+   contentProp:"Content from props..."
+}
+export default App;
+Let us take a look at main.js:
+1
+2
+3
+4
+5	import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App.jsx';
+ 
+ReactDOM.render(<App/>, document.getElementById('app'));
+When we run this on the browser, we would be able to see that the default Props constructor values are rendered on the browser.
+ 
+Props Validation:
+Validation on the properties is a useful technique to ensure the proper usage of components. It will also help reduce the number of bugs that we might get very late after crossing the development phases. Doing so, it makes your code pretty readable.
+Let us take an example with the main component as App and have all the properties that are required. App.propTypes will be used for the necessary properties validation. If the properties are not using the right types, then we would receive a warning for the same. We can set App.defaultProps after specifying the validation patterns. Let us now take a look at App.jsx:
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42	import React from 'react';
+ 
+class App extends React.Component {
+   render() {
+      return (
+         < div >
+            < h3 >Array: {this.props.propArray}< /h3 >
+            < h3 >Bool: {this.props.propBool ? "True..." : "False..."}< /h3 >
+            < h3 >Func: {this.props.propFunc(3)}< /h3 >
+            < h3 >Number: {this.props.propNumber}< /h3 >
+            < h3 >String: {this.props.propString}< /h3 >
+            < h3 >Object: {this.props.propObject.objectName1}< /h3 >
+            < h3 >Object: {this.props.propObject.objectName2}< /h3 >
+            < h3 >Object: {this.props.propObject.objectName3}< /h3 >
+         < /div >
+      );
+   }
+}
+ 
+App.propTypes = {
+   propArray: React.PropTypes.array.isRequired,
+   propBool: React.PropTypes.bool.isRequired,
+   propFunc: React.PropTypes.func,
+   propNumber: React.PropTypes.number,
+   propString: React.PropTypes.string,
+   propObject: React.PropTypes.object
+}
+ 
+App.defaultProps = {
+   propArray: [1,2,3,4,5],
+   propBool: true,
+   propFunc: function(e){return e},
+   propNumber: 1,
+   propString: "String value...",
+    
+   propObject: {
+      objectName1:"objectValue1",
+      objectName2: "objectValue2",
+      objectName3: "objectValue3"
+   }
+}
+export default App;
+Let us now take a look at main.js:
+1
+2
+3
+4	import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App.jsx';
+ReactDOM.render(<App/>, document.getElementById('app'));
+React JS - Component API
+In this section, let us learn something about the React Component APIs. There are mainly three methods that we would want to discuss about -> setState(), forceUpdate() and ReactDOM.findDOMNode().
+The setState() method will be used to update the state of the component. It will not replace the state of the component but only adds the changes to the original state.
+The forceUpdate() method updates the component manually and this API helps in achieving just that.
+The ReactDOM.findDOMNode() method is used for the DOM Node manipulations. For this to happen, we first need to import the react-dom module.
