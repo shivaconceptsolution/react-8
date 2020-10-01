@@ -538,3 +538,139 @@ class Content extends React.Component {
 }
 export default App;
 
+
+
+React JS - Keys, Router
+React Keys are useful when you are going to work closer with dynamically created components or when your lists are being altered by other users. Keeping the key-value unique will enable you to keep your components identified uniquely. Now, with this understanding of keys, let us now go through what Routers are in React JS. Routers let you route around your application via the links that we create to various components of the application. Let us now go through the step by step process of installation and a sample example to understand this.
+1. Install the React JS Router component:
+Installing the React JS Router component is as easy as running the following npm command, just the way we followed during the React JS environment setup.
+1	C:Users<Your Username>DesktopReactJSApplication>npm install react-router
+2. Create the necessary components:
+In this step, we shall be creating 4 components - one the main component (App) and the other three components are for the required traversal (Home, About, Contact). Let us look at these changes in the App.jsx file:
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52	import React from 'react';
+import ReactDOM from 'react-dom';
+import { Router, Route, Link, browserHistory, IndexRoute } from 'react-router'
+ 
+class App extends React.Component {
+   render() {
+      return (
+         < div >
+            < ul >
+            < li >Home< /li >
+            < li >About< /li >
+            < li >Contact< /li >
+            < /ul >
+            {this.props.children}
+         < /div >
+      )
+   }
+}
+export default App;
+ 
+class Home extends React.Component {
+   render() {
+      return (
+         < div >
+            < h1 >Home...< /h1 >
+         < /div >
+      )
+   }
+}
+export default Home;
+ 
+class About extends React.Component {
+   render() {
+      return (
+         < div >
+            < h1 >About...< /h1 >
+         < /div >
+      )
+   }
+}
+export default About;
+ 
+class Contact extends React.Component {
+   render() {
+      return (
+         < div >
+            < h1 >Contact...< /h1 >
+         < /div >
+      )
+   }
+}
+export default Contact;
+3. Add a Router to complete the flow:
+Based on the components that we have created earlier, we have to add the routes as appropriate to the application. Instead of rendering the App component itself in the other examples, what we would be doing is to render the Route element itself. Let us take a look at these changes on the main.js file:
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10	ReactDOM.render((
+   < Router history = {browserHistory} >
+      < Route path = "/" component = {App} >
+         < IndexRoute component = {Home}  />
+         < Route path = "home" component = {Home}  />
+         < Route path = "about" component = {About}  />
+         < Route path = "contact" component = {Contact}  />
+      < /Route >
+   < /Router >
+), document.getElementById('app'))
+Once the application is run, we will be able to see the links alone on the browser and when we choose to click on any of the links showcased (then you can see that the route has been changed).
+
+
