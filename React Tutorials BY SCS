@@ -674,3 +674,40 @@ Based on the components that we have created earlier, we have to add the routes 
 Once the application is run, we will be able to see the links alone on the browser and when we choose to click on any of the links showcased (then you can see that the route has been changed).
 
 
+
+ReaCT FORM USING REF KEYWORD:-
+
+import React, {Component} from 'react';
+class MyForm extends React.Component {
+  constructor(props) {
+    super(props);
+    console.log(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.input = React.createRef();
+    this.input1 = React.createRef();
+  }
+
+  
+
+  handleSubmit(event) {
+    alert('A name was submitted: ' + (this.input.current.value + this.input1.current.value));
+    event.preventDefault();
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          Name:
+          <input type="text" name="txt1" ref={this.input} />
+          <input type="text" name="txt2" ref={this.input1} />
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
+    );
+  }
+}
+
+export default MyForm;
+
+
