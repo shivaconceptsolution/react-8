@@ -711,3 +711,57 @@ class MyForm extends React.Component {
 export default MyForm;
 
 
+Example of Multiple ListBox or Control Binding :-
+
+
+import React, {Component} from 'react';
+class SelectForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {value: 'coconut',value1:'coconut1'};
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    console.log(event.target.name);
+    if(event.target.name == "s1")
+    this.setState({value: event.target.value});
+    else
+    this.setState({value1: event.target.value});
+  }
+
+  handleSubmit(event) {
+    alert('Your favorite flavor is: ' + this.state.value + this.state.value1);
+    event.preventDefault();
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          Pick your favorite flavor:
+          <select name="s1" value={this.state.value} onChange={this.handleChange}>
+            <option value="grapefruit">Grapefruit</option>
+            <option value="lime">Lime</option>
+            <option value="coconut">Coconut</option>
+            <option value="mango">Mango</option>
+          </select>
+
+          <select name="s2" value={this.state.value1} onChange={this.handleChange}>
+            <option value="grapefruit1">Grapefruit</option>
+            <option value="lime1">Lime</option>
+            <option value="coconut1">Coconut</option>
+            <option value="mango1">Mango</option>
+          </select>
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
+    );
+  }
+}
+
+
+export default SelectForm;
+
